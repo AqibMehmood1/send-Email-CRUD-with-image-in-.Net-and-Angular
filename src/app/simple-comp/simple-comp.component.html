@@ -1,0 +1,70 @@
+<div class="p-4" style="text-align: right;">
+    <button class="btn btn-success" (click)="openModal()" (click)="OnCreateAction()">
+      Create Employee
+    </button>
+  </div>
+  
+  <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': showModal, 'd-block': showModal}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create Employee</h5>
+          <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+  
+          <form [formGroup]="regForm" (ngSubmit)="onFormSubmite()">
+            <div class="form-group"  >
+              <label for="fname">Fist Name</label>
+              <input type="text" class="form-control" id="fname" formControlName="fname" required>
+            </div>
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input type="text" class="form-control" id="lname" formControlName="lname" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="text" class="form-control" id="email" formControlName="email" required>
+            </div>
+            <div class="form-group">
+              <label for="gender">Gender</label>
+              <input type="text" class="form-control" id="gender" formControlName="gender" required>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">{{savebtn}}</button>
+              <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Email</th>
+        <th scope="col">Gender</th>
+        <!-- <th scope="col">IsMarried ?</th> -->
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let emp of Employeedata">
+          <th scope="row">{{emp.id}}</th>
+          <td>{{emp.fname}}</td>
+          <!-- <td>{{emp.fname}}</td> -->
+          <td>{{emp.lname}}</td>
+          <td>{{emp.email}}</td>
+          <td>{{emp.gender}}</td>
+          <td><button class="btn m-1" (click)="openModal()" (click)=" OnEditAction(emp)">edit</button><button class="btn btn-danger m-1" (click)="deleteEmp(emp)" >delete</button></td>
+        </tr>
+      
+    </tbody>
+  </table>

@@ -1,0 +1,54 @@
+<div class="p-4" style="text-align: right;">
+  <button class="btn btn-success" (click)="OnCreateAction()">Add New Product</button>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': showModal, 'd-block': showModal}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ savebtn === 'Create' ? 'Add New Product' : 'Edit Product' }}</h5>
+        <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="imgForm" (ngSubmit)="onFormSubmite()">
+          <div class="form-group">
+            <label for="imageFile">Image</label>
+            <input type="file" (change)="onFileChange($event)" class="form-control" id="imageFile" formControlName="imageFile" [required]="savebtn === 'Create'">
+          </div>
+          <div class="form-group">
+            <label for="productName">Product Name</label>
+            <input type="text" class="form-control" id="productName" formControlName="productName" required>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">{{ savebtn }}</button>
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Image</th>
+      <th scope="col">Product name</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let pro of Productsdata">
+      <th scope="row">{{ pro.id }}</th>
+      <td><img src="{{ dumainURL }}{{ pro.productImage }}" height="70px" width="70px"></td>
+      <td>{{ pro.productName }}</td>
+      <td>
+        <button class="btn m-1" (click)="OnEditAction(pro)">Edit</button>
+        <button class="btn btn-danger m-1" (click)="deleteProducts(pro)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
